@@ -1,6 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
- 
+
+// Auth
+import { getAuth } from "firebase/auth";
+
+// Storage
+import { getStorage } from "firebase/storage";
+
+// Functions
+import { getFunctions } from "firebase/functions";
+
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyD0YNrXKgLsR0HLzm1KrJkFAkekVzdc37I",
   authDomain: "instagram-2026-ae5e0.firebaseapp.com",
@@ -11,7 +22,10 @@ const firebaseConfig = {
   
 };
 
+
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
 
 export { db };
