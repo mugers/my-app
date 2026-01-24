@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import {db} from './firebase.js';
 import {useEffect, useState} from 'react';
@@ -15,9 +15,7 @@ function App() {
   return (
     <div className="App">
 
-      <Header>
-
-      </Header>
+      <Header setUser={setUser} user={user}></Header>
 
 
 

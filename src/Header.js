@@ -1,8 +1,11 @@
 import {useEffect, useState} from 'react';
 
-function Header(){
-
-    const [user, setUser] = useState('Murilo');
+function Header(props){
+    useEffect(()=>{
+    props.setUser("joao");
+  },[])
+     
+    
 
     return (
     <div className="header">
@@ -12,9 +15,9 @@ function Header(){
             </div>
 
              {
-             (user)?
+             (props.user)?
               <div className="header__logadoInfo">
-                <span>olá <b>{user}</b></span>
+                <span>olá <b>{props.user}</b></span>
                 <a href="#">Publicar</a>
             </div>
             :
