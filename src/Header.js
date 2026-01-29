@@ -10,11 +10,11 @@ function Header(props){
         //Criar conta no firebase;
         function criarConta(e){
             e.preventDefault();
-            let Email = document.getElementById('email-cadastro').value;
-            let Senha = document.getElementById('senha-cadastro').value;
+            let email = document.getElementById('email-cadastro').value;
+            let senha = document.getElementById('senha-cadastro').value;
             let Usuario = document.getElementById('username-cadastro').value;
 
-            auth.createUserWithEmailAndPassword(Email,Senha)
+            auth.createUserWithEmailAndPassword(email,senha)
             .then((authUser)=>{
                 authUser.user.updateProfile({
                     displayName:Usuario
@@ -58,9 +58,9 @@ function Header(props){
         
                 <h2>Criar Conta</h2>
                 <form onSubmit={(e)=>criarConta(e)}>
-                    <input id='email-cadastro' type='text' placeholder='Email'></input>
-                    <input id='username-cadastro' type='text' placeholder='Usuario'></input>
-                    <input id='senha-cadastro' type='password' placeholder='Senha'></input>
+                    <input id='email-cadastro' type='text' placeholder='email'></input>
+                    <input id='username-cadastro' type='text' placeholder='usuario'></input>
+                    <input id='senha-cadastro' type='password' placeholder='senha'></input>
                     <input type='submit' value='Crir Conta'></input>
                 </form>
             </div>
