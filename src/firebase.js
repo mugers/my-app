@@ -10,8 +10,6 @@ import { getStorage } from "firebase/storage";
 // Functions
 import { getFunctions } from "firebase/functions";
 
-
-
 const firebaseConfig = {
   apiKey: "AIzaSyD0YNrXKgLsR0HLzm1KrJkFAkekVzdc37I",
   authDomain: "instagram-2026-ae5e0.firebaseapp.com",
@@ -26,6 +24,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-
-export { db };
+export { db, auth };

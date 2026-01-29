@@ -6,7 +6,7 @@ import Header from './Header.js';
 
 function App() {
 
-  const [user, setUser] = useState('Murilo');
+  const [user, setUser] = useState('');
 
   useEffect(()=>{
     console.log(db);
