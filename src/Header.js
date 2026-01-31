@@ -1,32 +1,55 @@
 import {useEffect, useState} from 'react';
 import {auth} from './firebase.js';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword,
+        signInWithEmailAndPassword, 
+        updateProfile } from "firebase/auth";
 
-function Header(props){
-    useEffect(()=>{
-    props.setUser("");
-  },[])
+function Header(props) {
+  
 
-        //Criar conta no firebase;
-        function criarConta(e){
-            e.preventDefault();
-            let email = document.getElementById('email-cadastro').value;
-            let senha = document.getElementById('senha-cadastro').value;
-            let Usuario = document.getElementById('username-cadastro').value;
+  function criarConta(e) {
+    e.preventDefault();
+    let email = document.getElementById('email-cadastro').value;
+    let senha = document.getElementById('senha-cadastro').value;
+    let username = document.getElementById('username-cadastro').value;
+    
 
-            auth.createUserWithEmailAndPassword(email,senha)
-            .then((authUser)=>{
-                authUser.user.updateProfile({
-                    displayName:Usuario
-                })
-                alert("conta criada")
-                let modal = document.querySelector('.modalCriarConta')
-                modal.style.display= "none";
-            }).catch((error)=>{
-                alert(error.message);
-            })
-            ;
-        }
+    
+    createUserWithEmailAndPassword(auth, email, senha)
+  .then((userCredential) => {
+    
+    updateProfile(userCredential.user, {
+      displayName: username 
+    }).then(() => {
+      console.log("Perfil atualizado!");
+      alert("conta criada!!!");
+      fecharModalCriar();
+    });
+  })
+  .catch((error) => {
+    console.error("Erro:", error.message);
+    alert(error.message);
+  });
+  }
+
+  function logar(e) {
+  e.preventDefault();
+  let email = document.getElementById('email-login').value;
+  let senha = document.getElementById('senha-login').value;
+
+  
+  signInWithEmailAndPassword(auth, email, senha)
+    .then((userCredential) => {
+      props.setUser(userCredential.user.displayName);
+      alert("Logado com sucesso!");
+    })
+    .catch((err) => {
+      alert("Erro ao logar: " + err.message);
+    });
+}
+
+
+
 
         function abrirModalCriarConta(e){
             e.preventDefault();
@@ -81,9 +104,9 @@ function Header(props){
             </div>
             :
             <div className="header_loginForm">
-            <form>
-                <input  type="text" placeholder="login"></input>
-                <input type="password" placeholder="senha"></input>
+            <form onSubmit={(e)=>logar(e)}>
+                <input id="email-login" type="text" placeholder="login"></input>
+                <input id="senha-login"type="password" placeholder="senha"></input>
                 <input type="submit" name="acao" value="logar"></input>
             </form>
                 <div className="btn_criarConta">

@@ -1,129 +1,178 @@
+/* Reset e Base */
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-body{
-  background-color: rgb(220, 220, 220);
+body {
+  background-color: #fafafa; /* Cinza bem claro padrão Instagram */
+  color: #262626;
 }
 
-.center{
-  padding: 0 2%;
+.center {
   display: flex;
-  max-width: 1100px;
+  align-items: center;
+  max-width: 975px; /* Tamanho padrão de container do Insta */
   margin: 0 auto;
+  padding: 0 20px;
 }
 
-.header{
-  padding: 10px 0;
-  background-color: rgb(255, 255, 255);
-  border-bottom: 2px solid;
+/* Header Moderno */
+.header {
+  padding: 8px 0;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dbdbdb;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.header_logo{
-   width: 50%;
-}
-
-.header_loginForm{
-  width:50%;
-  text-align: right;
-}
-
-.header_loginForm form{
-  display: inline-block;
-}
-
-.header_loginForm input[type=text],
-.header_loginForm input[type=password]{
-  margin-right: 10px;
-  width: 160px;
-  height: 25px;
-  border: 1px solid;
-}
-
-.header_loginForm input[type=submit]{
-  color: rgb(255, 255, 255);
-  background-color: rgb(0, 81, 255);
-  border: 0;
-  height: 25px;
-  padding: 0 10px;
-  border-radius: 7px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.btn_criarConta{
-  display: inline-block;
-}
-
-.btn_criarConta a{
-  font-size: 14px;
-  margin: 0 10px;
-}
-
-.header__logadoInfo{
-  text-align: right;
+.header_logo {
   width: 50%;
 }
 
-.header__logadoInfo a{
-  margin:0 10px;
-  color: rgb(255, 255, 255);
-  background-color: rgb(0, 123, 255);
-  text-decoration: none;
-  padding:  5px;
-  border-radius: 12px;
+.header_logo img {
+  max-width: 103px; /* Tamanho aproximado da logo */
   cursor: pointer;
-  font-size: 14px;
-  
 }
 
-.modalCriarConta{
+/* Formulário de Login no Header */
+.header_loginForm {
+  width: 50%;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header_loginForm input[type=text],
+.header_loginForm input[type=password] {
+  margin-right: 8px;
+  width: 180px;
+  height: 32px;
+  border: 1px solid #dbdbdb;
+  background: #fafafa;
+  border-radius: 3px;
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+.header_loginForm input[type=text]:focus,
+.header_loginForm input[type=password]:focus {
+  border: 1px solid #a8a8a8;
+  outline: none;
+}
+
+.header_loginForm input[type=submit] {
+  color: #ffffff;
+  background-color: #0095f6; /* Azul oficial do botão */
+  border: none;
+  height: 30px;
+  padding: 0 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.header_loginForm input[type=submit]:hover {
+  background-color: #1877f2;
+}
+
+/* Botão Criar Conta */
+.btn_criarConta a {
+  font-size: 14px;
+  margin-left: 15px;
+  color: #0095f6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Info Logado */
+.header__logadoInfo {
+  text-align: right;
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header__logadoInfo a {
+  margin-left: 15px;
+  color: #262626;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid #dbdbdb;
+  padding: 5px 12px;
+  border-radius: 4px;
+  background: #fff;
+}
+
+/* Modal de Cadastro (Estilo Centralizado) */
+.modalCriarConta {
   display: none;
-  position:fixed ;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
 }
 
-.formCriarConta{
+.formCriarConta {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   background-color: white;
-  padding: 20px;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-}
-
-.formCriarConta input{
+  padding: 40px;
   width: 100%;
-  height: 25px;
-  padding-left: 20px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
+  max-width: 350px; /* Largura da caixa de login do Insta */
+  text-align: center;
+  border-radius: 1px;
+  border: 1px solid #dbdbdb;
 }
 
-.formCriarConta input[type=submit]{
-  background-color: rgb(0, 123, 255);
-  cursor: pointer;
-  color: white; 
+.formCriarConta h2 {
+  font-family: 'InstaFont', sans-serif; /* Se tiver a fonte da logo */
+  margin-bottom: 20px;
+  color: #262626;
 }
 
-.close-modal-criar{
+.formCriarConta input {
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  background: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.formCriarConta input[type=submit] {
+  background-color: #0095f6;
+  font-weight: 600;
+  color: white;
+  margin-top: 10px;
+  height: 32px;
+  border: none;
+}
+
+/* Botão de Fechar Modal */
+.close-modal-criar {
   position: absolute;
-  color: rgb(255, 255, 255);
-  font-size: 20px;
-  right: -10px;
-  top: -10px;
+  top: 10px;
+  right: 10px;
   cursor: pointer;
-  width: 30px;
-  height:30px ;
-  border-radius: 15px;
-  background-color: rgb(0, 123, 255);
+  color: #262626;
+  font-size: 24px;
+  font-weight: 300;
+  background: none;
+  border: none;
 }
