@@ -82,7 +82,7 @@ function Header(props){
             :
             <div className="header_loginForm">
             <form>
-                <input type="text" placeholder="login"></input>
+                <input  type="text" placeholder="login"></input>
                 <input type="password" placeholder="senha"></input>
                 <input type="submit" name="acao" value="logar"></input>
             </form>
