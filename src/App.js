@@ -36,7 +36,7 @@ useEffect(() => {
         posts.map(function(val) {
         
           return (
-            <Post info={val.info} id={val.id}></Post>
+            <Post key={val.id} info={val.info} id={val.id}></Post>
          )
        })
       }
