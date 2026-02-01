@@ -30,3 +30,4 @@ const functions = getFunctions(app);
 
 
 export { db, auth, storage, functions };
+
