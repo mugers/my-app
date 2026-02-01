@@ -4,6 +4,7 @@ import {db} from './firebase.js';
 import {useEffect, useState} from 'react';
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import Header from './Header.js';
+import Post  from './Post.js'
 
 function App() {
 
@@ -22,6 +23,9 @@ useEffect(() => {
     return () => unsubscribe(); 
 }, []);
 
+  
+
+
 
   return (
     <div className="App">
@@ -30,13 +34,11 @@ useEffect(() => {
 
       {
         posts.map(function(val) {
-        return (
-      <div className='postSingle'>
-        <img src={val.info?.image}></img>
-        <p><b>{val.info?.userName}</b>:{val.info?.titulo}</p>
-      </div>
-    )
-  })
+        
+          return (
+            <Post info={val.info} id={val.id}></Post>
+         )
+       })
       }
 
     </div>
