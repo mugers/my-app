@@ -1,11 +1,16 @@
 import {useEffect, useState} from 'react';
-import {auth} from './firebase.js';
-import { createUserWithEmailAndPassword,
-        signInWithEmailAndPassword, 
-        updateProfile } from "firebase/auth";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {auth,storage, db} from './firebase.js';
+import { createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword, 
+    updateProfile } from "firebase/auth";
 
 function Header(props) {
   
+    const [progress,setProgress] = useState(0);
+    const [file, setFile] = useState(null)
 
   function criarConta(e) {
     e.preventDefault();
@@ -63,6 +68,67 @@ function Header(props) {
 
         }
 
+        function abrirModalUpload(e){
+            e.preventDefault();
+           let modal = document.querySelector('.modalUpload')
+
+
+            modal.style.display= "block";
+
+        }
+        function fecharModalUpload(){
+            let modal = document.querySelector('.modalUpload')
+
+
+            modal.style.display= "none";
+
+        }
+
+function uploadPost(e) {
+    e.preventDefault();
+    let tituloPost = document.getElementById("titulo-upload").value;
+
+    // Se 'file' for undefined, o erro de 'path' acontece aqui. 
+    // Garanta que o estado 'file' tenha o arquivo selecionado.
+    if (!file) return; 
+
+    // v9+: ref(instancia, caminho)
+    const storageRef = ref(storage, `images/${file.name}`);
+    
+    // v9+: uploadBytesResumable para monitorar progresso
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on("state_changed", 
+        (snapshot) => {
+            const progress = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            setProgress(progress);
+        }, 
+        (error) => {
+            alert(error.message);
+        }, 
+        () => {
+            // v9+: getDownloadURL recebe a referência da task
+            getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                
+                // v9+: addDoc e collection
+                addDoc(collection(db, "posts"), {
+                    titulo: tituloPost,
+                    image: url,
+                    userName: props.user,
+                    timestamp: serverTimestamp() // Importado do firestore
+                });
+
+                setProgress(0);
+                setFile(null);
+                alert("Upload Realizado");
+                document.getElementById("form-upload").reset();
+            });
+        }
+    );
+}
+
         function fecharModalCriar(){
             let modal = document.querySelector('.modalCriarConta')
 
@@ -89,6 +155,19 @@ function Header(props) {
             </div>
         </div>
 
+        <div className="modalUpload">
+            <div className="formUpload">
+                <div onClick={()=>fecharModalUpload()} className='close-modal-criar'>X</div>
+                <h2>Fazer upload</h2>
+                <form id="form-upload" onSubmit={(e)=>uploadPost(e)}>
+                    <progress id="progress-upload" value={progress}></progress>
+                    <input id="titulo-upload" type='text' placeholder="titulo"></input>
+                    <input onChange={(e)=>setFile(e.target.files[0])} type='file' name='file'></input>
+                    <input type='submit' value='Postar'></input>
+                </form>
+            </div>
+        </div>
+
 
 
         <div className='center'>
@@ -100,7 +179,7 @@ function Header(props) {
              (props.user)?
               <div className="header__logadoInfo">
                 <span>olá <b>{props.user}</b></span>
-                <a href="#">Publicar</a>
+                <a onClick={(e)=>abrirModalUpload(e)} href="#">Publicar</a>
             </div>
             :
             <div className="header_loginForm">
