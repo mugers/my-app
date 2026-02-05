@@ -1,5 +1,5 @@
 import { useState } from 'react'; // Importante para controlar o que é digitado
-import { db } from './firebase.js'; // Importe sua instância do banco
+import { db} from './firebase.js'; // Importe sua instância do banco
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 function Post(props) {

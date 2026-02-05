@@ -47,6 +47,7 @@ function Header(props) {
     .then((userCredential) => {
       props.setUser(userCredential.user.displayName);
       alert("Logado com sucesso!");
+      window.location.href= "/";
     })
     .catch((err) => {
       alert("Erro ao logar: " + err.message);
@@ -85,10 +86,11 @@ function Header(props) {
         }
 
         function Deslogar(e) {
-  e.preventDefault();
-  auth.signOut().then(() => {
-    props.setUser(null);
-  }).catch((error) => {
+            e.preventDefault();
+            auth.signOut().then(() => {
+                props.setUser(null);
+                window.location.href= "/";
+                    }).catch((error) => {
     console.error("Erro ao deslogar:", error);
   });
 }
