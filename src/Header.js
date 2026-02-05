@@ -84,6 +84,15 @@ function Header(props) {
 
         }
 
+        function Deslogar(e) {
+  e.preventDefault();
+  auth.signOut().then(() => {
+    props.setUser(null);
+  }).catch((error) => {
+    console.error("Erro ao deslogar:", error);
+  });
+}
+
 function uploadPost(e) {
     e.preventDefault();
     let tituloPost = document.getElementById("titulo-upload").value;
@@ -180,6 +189,7 @@ function uploadPost(e) {
               <div className="header__logadoInfo">
                 <span>olá <b>{props.user}</b></span>
                 <a onClick={(e)=>abrirModalUpload(e)} href="#">Publicar</a>
+                <a onClick={(e)=>Deslogar(e)}>Sair</a>
             </div>
             :
             <div className="header_loginForm">
