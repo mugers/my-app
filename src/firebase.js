@@ -11,7 +11,7 @@ import { getStorage } from "firebase/storage";
 import { getFunctions } from "firebase/functions";
 
 const firebaseConfig = {
-  apiKey: process.env.API_KEY,
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "instagram-2026-ae5e0.firebaseapp.com",
   projectId: "instagram-2026-ae5e0",
   storageBucket: "instagram-2026-ae5e0.firebasestorage.app",
