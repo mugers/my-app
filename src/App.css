@@ -1,7 +1,8 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Inter', -apple-system, sans-serif;
 }
 
 body{
@@ -21,6 +22,11 @@ body{
   width: 80px; /* Tamanho padrão da marca Instagram */
   height: auto;
   display: block;
+}
+
+input[type=submit]:hover {
+  background-color: #3300ff !important;
+  box-shadow: 10 10 15px rgba(0, 0, 0, 0.6);
 }
 
 .header{

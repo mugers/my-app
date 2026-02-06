@@ -1,9 +1,27 @@
-import { useState } from 'react'; // Importante para controlar o que é digitado
-import { db} from './firebase.js'; // Importe sua instância do banco
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { useState, useEffect } from 'react'; // Importante para controlar o que é digitado
+import { db,} from './firebase.js'; // Importe sua instância do banco
+import { collection, addDoc, serverTimestamp, doc, orderBy, onSnapshot } from "firebase/firestore";
 
 function Post(props) {
-    const [comentario, setComentario] = useState("");
+  const [comentario, setComentario] = useState("");
+  const [comentarios, setComentarios] = useState([]);
+
+  useEffect(() => {
+    // Referência: posts -> {id} -> comentarios
+    const unsub = onSnapshot(
+      collection(db, "posts", props.id, "comentarios"), 
+      (snapshot) => {
+        setComentarios(snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })));
+      }
+    );
+
+    return () => unsub(); // Limpa o listener ao desmontar
+  }, [props.id]);
+
+
 
 async function comentar(id, e) {
     e.preventDefault();
@@ -37,7 +55,22 @@ async function comentar(id, e) {
         <div className='postSingle'>
             <img src={props.info?.image} alt="Post" />
             <p><b>{props.info?.userName}</b>: {props.info?.titulo}</p>
-            
+            <div className='coments'>
+
+{
+    comentarios.map(function(val) {
+        return (
+            // Adicione sempre uma 'key' única para o React
+            <div key={val.id} className='comente-single'>
+                {/* Use os nomes exatos que você salvou na função comentar() */}
+                <p><b>{val.nome}</b>: {val.texto}</p>
+            </div>
+        )
+    })
+}
+            </div>
+
+
             <form onSubmit={(e) => comentar(props.id, e)}>
                 <textarea 
                     value={comentario} // Liga o valor ao estado
